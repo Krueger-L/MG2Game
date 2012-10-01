@@ -1,7 +1,11 @@
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
 
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 
 
@@ -9,11 +13,14 @@ public class GameWindow extends JFrame{
 
 	GamePanel panel;
 	Player player;
+	Enemy1 enemy1;
 	Controls controls;
 	Thread panelThread, gameloopthread, bulletthread;
 	Level level;
 	Gameloop gameloop;
 	BulletHandler bullethandler;
+	
+//	AudioClip audioClip;
 	
 	public GameWindow(){
 		super("Cybercalypse");
@@ -25,12 +32,26 @@ public class GameWindow extends JFrame{
 		level = new Level();
 		
 		player = new Player(this);//,50,50
+		enemy1 = new Enemy1(this);
 		panel = new GamePanel(this);
 		gameloop = new Gameloop(this);
 		addKeyListener(controls);
 		
 		add(panel);
 		bullethandler = new BulletHandler(this);
+		
+//		audioClip = new AudioClip();
+//		File audiofile = new File(""+getClass().getResource("audio/test_track_01.mp3"));
+//		try {
+//			audioClip.open(audiofile);
+//		} catch (UnsupportedAudioFileException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} catch (LineUnavailableException e) {
+//			e.printStackTrace();
+//		}
+//		AudioFormat audioFormat = audioClip.getFormat();
 		
 		setVisible(true);
 		this.setIgnoreRepaint(true);
